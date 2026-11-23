@@ -1,21 +1,15 @@
 # Notebooks
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/cubsai/notebooks/main?urlpath=lab)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/cubsai/notebooks/blob/colab/index.ipynb)
 
-Practice notebooks for the BSc (Hons) Artificial Intelligence (Coventry
-University, delivered by PSB Academy): a space to run, change and experiment
+Practice notebooks for an AI degree: a space to run, change and experiment
 with lesson notebooks and try out ideas.
 
-The lesson notebooks were written by the module teaching staff and are
-credited in each lesson folder's README.
-
-Course materials, lesson summaries and task tracking live in the private course repo,
-[`cubsai/course`](https://github.com/cubsai/course). Its week folders keep the
-lecturers' original notebooks, with their outputs, for reference. This repo is
-where you work on your own copies.
-
-Assessed work (assignments and coursework) doesn't go here: each assignment
-gets its own repository in `cubsai/`, with its own AI-use rules.
+Course materials, lesson summaries and task tracking live in a separate,
+private course repo, which keeps the original notebooks with their outputs for
+reference. This repo is where you work on your own copies. Assessed work
+doesn't go here: each assignment gets its own repository.
 
 ## Quick start
 
@@ -24,28 +18,33 @@ brew install uv just   # once per computer
 just setup             # once per clone: environment, git hooks, notebooks
 ```
 
-Then open a notebook (`.ipynb`) in VS Code and pick the `.venv` kernel. Or
-click the Binder badge to run everything in the browser with nothing
-installed. Full instructions, including Colab: [SETUP.md](SETUP.md).
+Then open a notebook (`.ipynb`) in VS Code and pick the `.venv` kernel.
+
+Nothing to install: the **Binder** badge opens everything in JupyterLab in
+your browser, and the **Colab** badge opens an index of the notebooks in Google
+Colab. Full instructions: [SETUP.md](SETUP.md).
 
 ## Layout
 
 ```
 notebooks/
-├── ml/                 # CU 6001 Machine Learning
-│   └── week-02/        # one folder per week, as in the course repo
+├── ml/                 # Machine Learning
+│   └── week-02/        # one folder per lesson
+│       └── outputs/    # saved copies of run notebooks (`just snapshot`)
+├── .github/            # workflow that builds the Colab notebooks
 ├── pyproject.toml      # libraries (uv) and Jupytext settings
 ├── uv.lock             # exact versions
-├── requirements.txt    # generated from uv.lock, for pip users
-├── .justfile           # `just` commands
+├── requirements.txt    # generated from uv.lock, for pip users and Binder
 ├── runtime.txt         # Python version for Binder
 ├── postBuild           # Binder step that creates the .ipynb files
+├── .justfile           # `just` commands
 └── SETUP.md            # how to run everything
 ```
 
-Module folders use the course's abbreviations (`ml`, later `ann` and others),
-with lesson folders named as in the course repo (`week-02`, `session-03`).
+Module folders use short names (`ml`, later `ann` and others), with lesson
+folders named `week-<nn>` or `session-<nn>`.
 
-Each notebook is stored as a `.py` script in Jupytext's percent format; the
-`.ipynb` is generated locally and isn't committed. See
+Each notebook is stored as a `.py` script in Jupytext's percent format. The
+`.ipynb` is generated locally with `just notebooks` and isn't committed, except
+for saved copies in `outputs/` folders. See
 [How notebooks are stored](SETUP.md#how-notebooks-are-stored).

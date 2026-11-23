@@ -1,0 +1,51 @@
+# Builds Colab-ready .ipynb files from the Jupytext scripts on main and
+# publishes them to the `colab` branch, which the README's Colab badge opens.
+name: Build Colab notebooks
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: colab
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build the notebooks
+        run: |
+          pip install jupytext
+          python .github/scripts/build_colab.py "$RUNNER_TEMP/colab"
+
+      - name: Publish to the colab branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git ls-remote --exit-code --heads origin colab > /dev/null; then
+            git fetch --depth 1 origin colab
+            git worktree add -B colab "$RUNNER_TEMP/branch" origin/colab
+          else
+            git worktree add --orphan -b colab "$RUNNER_TEMP/branch"
+          fi
+          cd "$RUNNER_TEMP/branch"
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -r "$RUNNER_TEMP/colab/." .
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to publish."
+          else
+            git commit -m "Build Colab notebooks from ${GITHUB_SHA::7}"
+            git push origin colab
+          fi

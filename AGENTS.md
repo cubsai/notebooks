@@ -4,32 +4,35 @@ Guidance for AI coding and writing agents working in this repository.
 
 ## About this repository
 
-`cubsai/notebooks` holds the student's practice notebooks for the BSc (Hons)
-Artificial Intelligence (Coventry University, delivered by PSB Academy). It
-sits next to the course repo, `cubsai/course`, which holds the lesson
-materials (including the lecturers' original notebooks), summaries, tasks and
-the course-wide `AGENTS.md`. Read that file for context on modules, dates and
-the student's preferences.
+`cubsai/notebooks` holds the student's practice notebooks for an AI degree.
+It sits next to the private course repo, `cubsai/course`, which holds the
+lesson materials (including the original notebooks), summaries, tasks and the
+course-wide `AGENTS.md`. Read that file for context on modules, dates and the
+student's preferences.
 
 This is a learning space: agents can help freely here (explain, debug, extend
 notebooks, suggest experiments). Assessed work never goes here; each
 assignment has its own repository in `cubsai/` with stricter AI-use rules.
 
-**This repository is public** (so Binder can run it). Never commit personal
-information, credentials, assessment briefs or anything from an assessment
-repo. Lesson notebooks copied from the course are included by the student's
-choice; credit them to the module in the lesson README.
+Read [MEMORY.md](MEMORY.md) at the start of each session.
+
+**This repository is public** (so Binder and Colab can run it):
+
+- Never commit personal information, credentials, assessment briefs or
+  anything from an assessment repo.
+- Don't name the university, the academy or any teaching staff anywhere in
+  this repo, in files, commit messages or pull requests. Refer to "the course"
+  or "the private course repo" instead.
 
 ## Layout and naming
 
-- Module folders use the course abbreviations in lowercase: `ml/` (CU 6001
-  Machine Learning), `ann/` (CU 6009 Artificial Neural Networks). Ask before
-  inventing one for another module.
+- Module folders use the course abbreviations in lowercase: `ml/` (Machine
+  Learning), `ann/` (Artificial Neural Networks). Ask before inventing one for
+  another module.
 - Lesson folders match the course repo: `week-<nn>/` or `session-<nn>/`.
-- Each lesson folder has a short `README.md`: where the notebooks came from
-  (credit the module and teaching staff), what each does, and which data
-  files it needs.
-- Keep the lecturers' file names for copied notebooks, so they're easy to match
+- Each lesson folder has a short `README.md`: what each notebook does, which
+  data files it needs, and its Colab link.
+- Keep the original file names for copied notebooks, so they're easy to match
   with the originals in the course repo.
 
 ## Notebooks
@@ -38,18 +41,28 @@ choice; credit them to the module in the lesson README.
   and an `.ipynb` (ignored, generated locally). Settings are in
   `pyproject.toml` under `[tool.jupytext]`.
 - Edit either file, then run `just notebooks` so both match before committing.
-  Never commit `.ipynb` files.
-- Every `.py` file inside a module folder is treated as a notebook. Put any
-  shared helper code in a clearly named root folder instead.
+  Never commit paired `.ipynb` files.
+- Every `.py` file inside a module folder (outside `outputs/`) is treated as a
+  notebook. Put any shared helper code in a clearly named root folder, and
+  exclude it from the notebook searches in `.justfile`, `postBuild`,
+  `.pre-commit-config.yaml` and `.github/scripts/build_colab.py`.
+- `outputs/` folders hold snapshots made with `just snapshot`: committed
+  `.ipynb` copies with outputs, unpaired. Don't edit them by hand.
 - To copy a new week's notebooks from the course repo: copy the `.ipynb` files
   into the lesson folder, run `just notebooks` to create the `.py` scripts,
-  add the lesson `README.md`, and commit the `.py` files and README only.
+  add the lesson `README.md` (with Colab links), and commit the `.py` files and
+  README only.
 
-## Binder
+## Binder and Colab
 
-`runtime.txt` sets the Python version, Binder installs `requirements.txt`, then
-`postBuild` runs Jupytext to create the `.ipynb` files. Keep `jupytext` a main
-(not dev) dependency so it's in `requirements.txt`.
+- **Binder:** `runtime.txt` sets the Python version, Binder installs
+  `requirements.txt`, then `postBuild` runs Jupytext to create the `.ipynb`
+  files. Keep `jupytext` a main (not dev) dependency so it's in
+  `requirements.txt`.
+- **Colab:** on every push to `main`, `.github/workflows/colab.yml` runs
+  `.github/scripts/build_colab.py` to build Colab-ready notebooks (with a setup
+  cell that clones the repo) and an `index.ipynb`, and publishes them to the
+  `colab` branch. Never edit or open pull requests against `colab`.
 
 ## Environment
 

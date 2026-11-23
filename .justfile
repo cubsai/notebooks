@@ -25,9 +25,23 @@ remove +packages: && export
 export:
     uv export --frozen --no-dev --no-hashes --output-file=requirements.txt --quiet
 
-# Pair every notebook with its .py script, creating whichever is missing
+# Create or update the .ipynb for every .py script (and the .py for any new notebook)
 notebooks:
-    uv run jupytext --sync $(find . -path ./.venv -prune -o -path '*/.ipynb_checkpoints' -prune -o \( -name '*.ipynb' -o -name '*.py' \) -print)
+    uv run jupytext --sync $(find . \( -path './.*' -o -name outputs -o -name .ipynb_checkpoints \) -prune -o -path './*/*' \( -name '*.ipynb' -o -name '*.py' \) -print)
+
+# Save a run notebook, outputs included, to its lesson's outputs/ folder, e.g. `just snapshot ml/week-02/6001CMD_Week2_Q4`
+snapshot +notebooks:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for nb in {{notebooks}}; do
+      src="${nb%.py}"; src="${src%.ipynb}.ipynb"
+      [ -f "$src" ] || { echo "No notebook at $src (run just notebooks first)"; exit 1; }
+      dest="$(dirname "$src")/outputs/$(basename "$src")"
+      mkdir -p "$(dirname "$dest")"
+      cp "$src" "$dest"
+      uv run jupytext --set-formats ipynb "$dest" > /dev/null
+      echo "Saved $dest"
+    done
 
 # Open JupyterLab in the browser
 lab:
