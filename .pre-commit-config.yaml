@@ -1,0 +1,19 @@
+# Turn on with `just hooks` (once per clone). See SETUP.md.
+repos:
+  # Regenerate requirements.txt whenever uv.lock changes.
+  # Set rev to your uv version (`uv --version`).
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.13.9
+    hooks:
+      - id: uv-export
+        args: ["--frozen", "--no-dev", "--no-hashes", "--output-file=requirements.txt", "--quiet"]
+
+  # Bring each .py script up to date with its notebook before committing,
+  # in case the notebook was edited without the Jupytext-Sync extension.
+  - repo: local
+    hooks:
+      - id: jupytext-sync
+        name: Sync notebooks with their .py scripts
+        entry: uv run jupytext --sync
+        language: system
+        files: \.py$

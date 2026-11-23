@@ -1,0 +1,13 @@
+# Python environment (managed by uv)
+.venv/
+__pycache__/
+
+# Notebooks: the paired .py script is tracked; the .ipynb is generated locally
+*.ipynb
+.ipynb_checkpoints/
+
+# Datasets too large for git (note where to get them in the week's README)
+*.large.csv
+
+# macOS
+.DS_Store
