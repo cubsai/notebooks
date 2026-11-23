@@ -2,7 +2,7 @@
 # Binder runs this after installing requirements.txt: create the .ipynb for
 # every notebook script, so they open as notebooks in JupyterLab.
 set -euo pipefail
-files=$(find . -path ./.git -prune -o -path '*/.ipynb_checkpoints' -prune -o -name '*.py' -print)
+files=$(find . \( -path './.*' -o -name outputs -o -name .ipynb_checkpoints \) -prune -o -path './*/*' -name '*.py' -print)
 if [ -n "$files" ]; then
   jupytext --sync $files
 fi

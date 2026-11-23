@@ -2,11 +2,13 @@
 .venv/
 __pycache__/
 
-# Notebooks: the paired .py script is tracked; the .ipynb is generated locally
+# Notebooks: the paired .py script is tracked; the .ipynb is generated locally.
+# Exception: saved copies made with `just snapshot`.
 *.ipynb
+!**/outputs/*.ipynb
 .ipynb_checkpoints/
 
-# Datasets too large for git (note where to get them in the week's README)
+# Datasets too large for git (note where to get them in the lesson README)
 *.large.csv
 
 # macOS

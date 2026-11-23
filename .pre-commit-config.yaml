@@ -16,4 +16,6 @@ repos:
         name: Sync notebooks with their .py scripts
         entry: uv run jupytext --sync
         language: system
-        files: \.py$
+        # Notebook scripts live in module folders; skip outputs/ copies.
+        files: ^[^/]+/.+\.py$
+        exclude: /outputs/
