@@ -35,6 +35,8 @@ notebooks/
 ├── ml/                 # Machine Learning
 │   └── week-02/        # one folder per lesson
 │       └── outputs/    # saved copies of run notebooks (`just snapshot`)
+├── playground/         # small experiments with tools, not tied to a lesson
+│   └── mlflow/         # tracking training runs with MLflow
 ├── .github/            # workflow that builds the Colab notebooks
 ├── pyproject.toml      # libraries (uv) and Jupytext settings
 ├── uv.lock             # exact versions

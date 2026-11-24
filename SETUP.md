@@ -217,9 +217,11 @@ extension.
 If a hook changes a file, the commit stops. Stage the updated file
 (`git add`) and commit again.
 
-`requirements.txt` doesn't record the Python version. This repo needs Python
-3.12 or later (`requires-python` in `pyproject.toml`); say so in any README
-someone else will read.
+The Python version is pinned to 3.12 in `.python-version`. uv reads it and
+downloads that Python if your computer doesn't have it, so everyone (and
+Binder, via `runtime.txt`) runs the same version. `requirements.txt` doesn't
+record the Python version, so anyone using pip instead of uv needs Python 3.12
+themselves.
 
 ## In the cloud: Binder and Google Colab
 
