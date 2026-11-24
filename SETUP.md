@@ -3,11 +3,48 @@
 How to run the notebooks in this repository, on your computer or in the
 cloud. Anaconda, which the lab sheets suggest, isn't needed.
 
+- [Setup checklist](#setup-checklist)
 - [How notebooks are stored](#how-notebooks-are-stored)
 - [Locally: uv, just and VS Code](#locally-uv-just-and-vs-code)
 - [Saving outputs](#saving-outputs)
 - [Keeping `requirements.txt` in step](#keeping-requirementstxt-in-step)
 - [In the cloud: Binder and Google Colab](#in-the-cloud-binder-and-google-colab)
+
+## Setup checklist
+
+Work through this once per computer. When every box is ticked, the computer is
+ready for the labs. The steps are explained in the sections below.
+
+**Tools (once per computer)**
+
+- [ ] `uv --version` and `just --version` both print a version
+      (if not: `brew install uv just`)
+- [ ] VS Code has the **Python**, **Jupyter** and **Jupytext-Sync**
+      extensions installed (Extensions view, ⇧⌘X)
+
+**This repo (once per clone)**
+
+- [ ] The repo is cloned (`git clone https://github.com/cubsai/notebooks.git`)
+      and up to date (`git pull` on `main`)
+- [ ] `just setup` finished without errors
+- [ ] `just check` ends with **All set.** It checks Python 3.12+ in `.venv`,
+      that the libraries import, that the git hooks are on, that every script
+      has its `.ipynb`, and that a test notebook runs
+
+**In VS Code**
+
+- [ ] Open `ml/week-02/6001CMD_Week2_Q4.ipynb`, choose **Select Kernel →
+      .venv**, then **Run All**: the weather charts appear with no errors
+
+**Cloud fallbacks (optional)**
+
+- [ ] The **Binder** badge in the [README](README.md) opens JupyterLab (the
+      first launch after a change can take a few minutes)
+- [ ] The **Colab** badge opens the notebook index, and Week 2 Q4 runs after
+      its first (setup) cell
+
+If anything fails, run `just check` again: each ✗ line says which command
+fixes it.
 
 ## How notebooks are stored
 
@@ -78,6 +115,7 @@ notebook that uses it.
 | Command | What it does |
 | ------- | ------------ |
 | `just` | Lists the commands |
+| `just check` | Checks that this computer is set up (see the [checklist](#setup-checklist)) |
 | `just sync` | Updates the environment, e.g. after pulling changes to `uv.lock` |
 | `just add <library>` | Adds a library to `pyproject.toml` and `uv.lock`, and updates `requirements.txt` |
 | `just remove <library>` | Removes a library and updates all three files |

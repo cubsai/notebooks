@@ -16,6 +16,7 @@ doesn't go here: each assignment gets its own repository.
 ```sh
 brew install uv just   # once per computer
 just setup             # once per clone: environment, git hooks, notebooks
+just check             # confirms everything works
 ```
 
 Then open a notebook (`.ipynb`) in VS Code and pick the `.venv` kernel.
