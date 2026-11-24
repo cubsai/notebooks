@@ -167,7 +167,8 @@ cell) are instructions to Jupyter itself, not Python. For example,
 `%matplotlib inline` tells Jupyter to show charts inside the notebook, and
 `%timeit` times a line of code. Lines starting with `!` run a terminal command
 (`!pip install seaborn`). They only work inside a notebook, which is why the
-`.py` script keeps them as comments.
+`.py` script keeps them as comments. More magics, with examples, are in the
+[cheat sheet](cheatsheet.md#magic-commands).
 
 ## Saving outputs
 

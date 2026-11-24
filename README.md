@@ -25,6 +25,9 @@ Nothing to install: the **Binder** badge opens everything in JupyterLab in
 your browser, and the **Colab** badge opens an index of the notebooks in Google
 Colab. Full instructions: [SETUP.md](SETUP.md).
 
+Quick reference for magic commands, shortcuts, the `just` commands, the lab
+libraries and common fixes: [cheatsheet.md](cheatsheet.md).
+
 ## Layout
 
 ```
@@ -39,7 +42,8 @@ notebooks/
 ├── runtime.txt         # Python version for Binder
 ├── postBuild           # Binder step that creates the .ipynb files
 ├── .justfile           # `just` commands
-└── SETUP.md            # how to run everything
+├── SETUP.md            # how to run everything
+└── cheatsheet.md       # quick reference
 ```
 
 Module folders use short names (`ml`, later `ann` and others), with lesson
