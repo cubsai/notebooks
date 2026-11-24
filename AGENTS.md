@@ -30,6 +30,9 @@ Read [MEMORY.md](MEMORY.md) at the start of each session.
   Learning), `ann/` (Artificial Neural Networks). Ask before inventing one for
   another module.
 - Lesson folders match the course repo: `week-<nn>/` or `session-<nn>/`.
+- `playground/<topic>/` holds small experiments with tools and ideas that
+  aren't tied to a lesson (for example `playground/mlflow/`). Each has a
+  `README.md` explaining how to run it.
 - Each lesson folder has a short `README.md`: what each notebook does, which
   data files it needs, and its Colab link.
 - Keep the original file names for copied notebooks, so they're easy to match
@@ -66,6 +69,9 @@ Read [MEMORY.md](MEMORY.md) at the start of each session.
 
 ## Environment
 
+- The Python version is pinned in `.python-version` (3.12); uv uses it
+  everywhere and downloads it if needed. Binder's `runtime.txt` must name the
+  same version (`python-3.12`): change both together.
 - uv manages the environment: change libraries only with `just add` or
   `just remove` (or `uv add`/`uv remove` followed by `just export`), so
   `pyproject.toml`, `uv.lock` and `requirements.txt` stay in step.
