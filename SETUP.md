@@ -6,6 +6,7 @@ cloud. Anaconda, which the lab sheets suggest, isn't needed.
 - [Setup checklist](#setup-checklist)
 - [How notebooks are stored](#how-notebooks-are-stored)
 - [Locally: uv, just and VS Code](#locally-uv-just-and-vs-code)
+- [Converting a script into a notebook](#converting-a-script-into-a-notebook)
 - [Saving outputs](#saving-outputs)
 - [Keeping `requirements.txt` in step](#keeping-requirementstxt-in-step)
 - [In the cloud: Binder and Google Colab](#in-the-cloud-binder-and-google-colab)
@@ -143,6 +144,30 @@ date with the latest scripts.
 | `runtime.txt`, `postBuild` | Binder's Python version and build step | Yes |
 | `.github/` | The workflow that builds the Colab notebooks | Yes |
 | `.venv/` | The virtual environment | No (ignored) |
+
+## Converting a script into a notebook
+
+Some lab code comes as a plain-text script rather than a notebook. To turn one
+into a notebook in this repo:
+
+1. Save it as a `.py` file in its lesson folder, for example
+   `ml/week-01/Essential_Libraries_and_Tools.py`.
+2. Start every cell with a line that is exactly `# %%`. A `# Cell 1` comment
+   alone doesn't count; keep it on the next line if you like it as a label.
+3. Comment out any **magic commands**: write `%matplotlib inline` as
+   `# %matplotlib inline`. Jupytext turns it back into a real magic in the
+   notebook.
+4. Run `just notebooks`. You should see `Updating …ipynb`.
+
+If Jupytext says the file "is not a paired notebook", check steps 2 and 3: an
+uncommented magic makes Jupytext read the file as a different format.
+
+**What are magic commands?** Lines starting with `%` (or `%%` for a whole
+cell) are instructions to Jupyter itself, not Python. For example,
+`%matplotlib inline` tells Jupyter to show charts inside the notebook, and
+`%timeit` times a line of code. Lines starting with `!` run a terminal command
+(`!pip install seaborn`). They only work inside a notebook, which is why the
+`.py` script keeps them as comments.
 
 ## Saving outputs
 

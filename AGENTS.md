@@ -48,6 +48,10 @@ Read [MEMORY.md](MEMORY.md) at the start of each session.
   `.pre-commit-config.yaml` and `.github/scripts/build_colab.py`.
 - `outputs/` folders hold snapshots made with `just snapshot`: committed
   `.ipynb` copies with outputs, unpaired. Don't edit them by hand.
+- Scripts must be valid `py:percent`: each cell starts with an exact `# %%`
+  line, and magics (`%…`) and shell commands (`!…`) are commented out
+  (`# %matplotlib inline`). An uncommented magic makes Jupytext read the file
+  as the "hydrogen" format, so it won't pair. Use Unix (LF) line endings.
 - To copy a new week's notebooks from the course repo: copy the `.ipynb` files
   into the lesson folder, run `just notebooks` to create the `.py` scripts,
   add the lesson `README.md` (with Colab links), and commit the `.py` files and
